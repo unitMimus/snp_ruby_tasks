@@ -10,6 +10,7 @@
 	date_in_future(2) # => текущая дата + 2 дня
 =end
 
+require 'active_support/core_ext/time'
 require 'active_support/core_ext/date'
 
 def date_in_future(integer=0)
