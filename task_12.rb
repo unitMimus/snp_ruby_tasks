@@ -6,13 +6,14 @@
 
 class Dessert
   attr_accessor :name, :calories
-  def initialize(name, calories)
-    @name = name
-    @calories = calories
+  def initialize(*description)
+    @name = description[0]
+    @calories = description[1]
   end 
   
   def healthy?
-    if @calories < 200; return true
+    if @calories == nil; return nil
+    elsif @calories < 200; return true
     else return false
     end
   end
@@ -24,6 +25,14 @@ end
 
 class JellyBean < Dessert
   attr_accessor :flavor
+  def initialize(*description)
+      if description.length == 1
+          @flavor=description[0]
+      else
+          super
+          @flavor=description[2]
+      end
+  end
   
   def delicious?
     if @flavor == "black licorice"
