@@ -16,20 +16,16 @@
 	rps_game_winner([%w[player1 P], %w[player2 P]])) # => 'player1 P' 
 =end
 
+class WrongNumberOfPlayersError < ArgumentError;  end
+
+class NoSuchStrategyError < ArgumentError;  end
+
 def rps_game_winner(step)
   actions=["R","S","P"]
   
-  begin	#Ловим неправильное количество игрков
-    raise ArgumentError.new('WrongNumberOfPlayersError') if step.length!=2
-  rescue ArgumentError => e
-    return e
-  end
-  
-  begin	#Ловим неправильные ходы
-    raise ArgumentError.new('NoSuchStrategyError') if !(actions.include?(step[0][1]) && actions.include?(step[1][1]))
-  rescue ArgumentError => e
-    return e
-  end
+  raise WrongNumberOfPlayersError if step.length!=2 #Ловим неправильное количество игрков
+
+  raise NoSuchStrategyError if !(actions.include?(step[0][1]) && actions.include?(step[1][1]))  #Ловим неправильные ходы
   
   case [step[0][1],step[1][1]]
     when ["R","S"], ["S","P"], ["P","R"] then return "#{step[0][0]} #{step[0][1]}\n"	#Ходы разные, побеждает первый
