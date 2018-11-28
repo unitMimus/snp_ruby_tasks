@@ -6,14 +6,13 @@
 
 class Dessert
   attr_accessor :name, :calories
-  def initialize(*description)
-    @name = description[0]
-    @calories = description[1]
+  def initialize(name, calories)
+    @name = name
+    @calories = calories
   end 
   
   def healthy?
-    if @calories == nil; return nil
-    elsif @calories < 200; return true
+    if @calories < 200; return true
     else return false
     end
   end
@@ -25,15 +24,18 @@ end
 
 class JellyBean < Dessert
   attr_accessor :flavor
-  def initialize(*description)
-      if description.length == 1
-          @flavor=description[0]
-      else
-          super
-          @flavor=description[2]
-      end
-  end
   
+  def initialize(name, calories, flavor)
+    if calories.respond_to?(:integer?)  #Эта проверка и код в else если я не понял и параметры должны передаваться в другом порядке (flavor, name, calories)
+      super(name, calories)
+      @flavor=flavor
+    else
+      @name=calories
+      @calories=flavor
+      @flavor=name
+    end
+  end
+
   def delicious?
     if @flavor == "black licorice"
       return false
