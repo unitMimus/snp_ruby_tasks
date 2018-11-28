@@ -26,14 +26,8 @@ class JellyBean < Dessert
   attr_accessor :flavor
   
   def initialize(name, calories, flavor)
-    if calories.respond_to?(:integer?)  #Эта проверка и код в else если я не понял и параметры должны передаваться в другом порядке (flavor, name, calories)
-      super(name, calories)
-      @flavor=flavor
-    else
-      @name=calories
-      @calories=flavor
-      @flavor=name
-    end
+    super(name, calories)
+    @flavor=flavor
   end
 
   def delicious?
